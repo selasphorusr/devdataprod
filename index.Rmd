@@ -1,0 +1,20 @@
+---
+title: "Leaflet map"
+author: "S.rufus"
+date: "22/01/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Produced with ```leaflet```. Isn't the north pole scenic?
+
+```{r, echo=FALSE}
+library(leaflet)
+map_examp<-leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat=90.00000, lng=-135.000000, popup = "North Pole :)")
+map_examp
+```
