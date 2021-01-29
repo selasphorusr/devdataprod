@@ -1,0 +1,52 @@
+---
+title: "Plotly Slideshow"
+author: "S.rufus"
+date: "29/01/2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Overview
+
+This is a simple slideshow presentation to demonstrate the R package, `Plotly`. I will
+
+- First, load the `Mtcar` dataset,
+- Second, plot the data using the `plot_ly()` command, and
+- Last, run a linear regression and plot the regression line.
+
+## Let's get started
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+library(plotly)
+library(datasets)
+head(mtcars)
+```
+
+## Let's plot `mpg` against `wt`
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+plot_ly(mtcars, x=mtcars$wt, y=mtcars$mpg, mode="markers") %>%
+  layout(title="Mtcars dataset plotted using the package 'Plotly'",
+         xaxis = list(title="Car Weight (tonnes)"), 
+         yaxis=list(title="Car Gas Mileage (MPG)"))
+
+```
+
+## And finally, let's regress `mpg` on `wt`, and add the line to the plot
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+modfit<-lm(mtcars$mpg~mtcars$wt)
+```
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+plot_ly(mtcars, x=mtcars$wt, y=mtcars$mpg, mode="markers") %>%
+  layout(title="Mtcars dataset plotted using the package 'Plotly'",
+         xaxis = list(title="Car Weight (tonnes)"), 
+         yaxis=list(title="Car Gas Mileage (MPG)")) %>%
+  add_markers(y=~mtcars$mpg) %>%
+  add_lines(x= ~mtcars$wt, y=fitted(modfit))
+```
+
+## Fin
